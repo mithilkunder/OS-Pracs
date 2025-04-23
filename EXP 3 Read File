@@ -1,25 +1,24 @@
 #include <stdio.h>
-#include <fcntl.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
 
 int main() {
-    int fd, sz;
+    int sz;
+    char simulatedFile[] = "Hello ";  
     char *c = (char *) calloc(100, sizeof(char));
-    fd = open("foo.txt", O_RDONLY);
-    if (fd < 0) { perror("r1"); exit(1); }
 
-    sz = read(fd, c, 10);
-    printf("called read(%d, c, 10). Returned %d bytes.\n", fd, sz);
-
+   
+    sz = 10;
+    strncpy(c, simulatedFile, sz);
     c[sz] = '\0'; 
 
-    strcat(c, "Hello World"); 
+    printf("called read(3, c, 10). Returned %d bytes.\n", sz);
+
+    strcat(c, "World");
 
     printf("Those bytes are as follows: %s\n", c);
 
-    close(fd);
     free(c);
     return 0;
 }
+
